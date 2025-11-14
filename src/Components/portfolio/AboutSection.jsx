@@ -111,7 +111,7 @@ export default function AboutSection() {
               >
                 <div className="absolute inset-0 bg-gradient-to-br from-[#007BFF]/10 to-[#00C896]/10 mix-blend-overlay" />
                 <img
-                    src="https://raw.githubusercontent.com/jluisrobles/portfolio-assets/main/portada.png"
+                    src="https://raw.githubusercontent.com/jluisrobles/portfolio-assets/af2a822eabac986220f00cf62ca79ac937eb829c/portada.png"
                     alt="José Luis Robles"
                     className="w-full h-full object-cover"
                     loading="lazy"
