@@ -111,7 +111,7 @@ export default function AboutSection() {
               >
                 <div className="absolute inset-0 bg-gradient-to-br from-[#007BFF]/10 to-[#00C896]/10 mix-blend-overlay" />
                 <img
-                    src="https://private-user-images.githubusercontent.com/123477564/512681575-cff6140b-f097-4472-92ba-08c97f0231e6.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NjI4NjA3NTgsIm5iZiI6MTc2Mjg2MDQ1OCwicGF0aCI6Ii8xMjM0Nzc1NjQvNTEyNjgxNTc1LWNmZjYxNDBiLWYwOTctNDQ3Mi05MmJhLTA4Yzk3ZjAyMzFlNi5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjUxMTExJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI1MTExMVQxMTI3MzhaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT1mMzE3ODU1NmRkYWY0YjhkYTQxYmE3M2IxZDJiNTE0ZGM2OTMwMThiMWJjZmNjM2YxNDNhMTI0ZGEwM2Y4MDM3JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.Wb9O_NaPoGeHcc6FhOWOVr9vmefjhyKhh8SUKiKdgyY"
+                    src="https://raw.githubusercontent.com/jluisrobles/portfolio-assets/main/portada.png"
                     alt="José Luis Robles"
                     className="w-full h-full object-cover"
                     loading="lazy"
