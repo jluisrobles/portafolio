@@ -18,79 +18,42 @@ export default function ProjectsSection() {
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          setInView(true);
-        }
+        if (entry.isIntersecting) setInView(true);
       },
       { threshold: 0.1 }
     );
-
-    if (ref.current) {
-      observer.observe(ref.current);
-    }
-
+    if (ref.current) observer.observe(ref.current);
     return () => {
-      if (ref.current) {
-        observer.unobserve(ref.current);
-      }
+      if (ref.current) observer.unobserve(ref.current);
     };
   }, []);
 
-  // === Cargar proyectos ===
+  // === Cargar proyectos simulados ===
   useEffect(() => {
-    const timer = setTimeout(() => {
+    setTimeout(() => {
       setProjects([
         {
           id: 1,
-          title: "ANÁLISIS PREDICTIVO DE MERCADO AUTOMOTRIZ",
+          title: "ÁLISIS PREDICTIVO DE MERCADO AUTOMOTRIZ",
           description: "Visualización con Power BI",
-          category:
-            "DATA ANALYSIS / MACHINE LEARNING / VISUALIZATION / AUTOMATION",
-          technologies: [
-            "Python / Machine Learning (scikit-learn) / Visualización de datos / Dashboards interactivos",
-          ],
+          category: "DATA ANALYSIS / MACHINE LEARNING / VISUALIZATION / AUTOMATION",
+          technologies: ["Python / Machine Learning (scikit-learn) / Visualización de datos / Dashboards interactivos"],
           thumbnail_url:
             "https://raw.githubusercontent.com/jluisrobles/portfolio-assets/main/car%20prediction.png",
           video_url: "https://youtu.be/y3R9gTR_sSg",
         },
-
         {
           id: 2,
           title: "AUTOMATIZACIÓN Y PROSPECCIÓN COMERCIAL",
-          description:
-            "Visualización interactiva con Streamlit a partir de datos enriquecidos",
-          category:
-            "DATA EXTRACTION / TRANSFORMATION / VISUALIZATION / APP DEPLOYMENT",
-          technologies: [
-            "Python / Streamlit / Excel avanzado / Sales Navigator / Skrapp / Datagma / Limpieza de datos",
-          ],
-          thumbnail_url:
-            "https://raw.githubusercontent.com/jluisrobles/portfolio-assets/main/tecnolog%C3%ADas.png",
+          description: "Visualización interactiva con Streamlit a partir de datos enriquecidos",
+          category: "DATA EXTRACTION / TRANSFORMATION / VISUALIZATION / APP DEPLOYMENT",
+          technologies: ["Python / Streamlit / Excel avanzado / Sales Navigator / Skrapp / Datagma / Limpieza de datos"],
+          thumbnail_url: "https://raw.githubusercontent.com/jluisrobles/portfolio-assets/main/tecnolog%C3%ADas.png",
           video_url: "https://youtu.be/GV9s4c6_M4g",
         },
-
-        {
-          id: 3,
-          title: "ANÁLISIS DE VENTAS · DISTRIBUCIONES CANARIAS S.L.",
-          description:
-            "Análisis de ventas del archipiélago canario mediante Power BI, integrando datos procedentes de múltiples fuentes.",
-          category:
-            "DATA ANALYSIS / POWER BI / DATA INTEGRATION / VISUALIZATION",
-          technologies: [
-            "Power BI / Power Query / DAX / Integración de múltiples fuentes / Modelado de datos / Dashboards interactivos",
-          ],
-          thumbnail_url:
-            "https://raw.githubusercontent.com/jluisrobles/portfolio-assets/main/distribuciones-canarias.png",
-
-          // === CAMBIA ESTA URL POR LA DE TU VIDEO DE YOUTUBE ===
-          video_url: "https://youtu.be/To_oepDMMcs",
-        },
       ]);
-
       setIsLoading(false);
     }, 1000);
-
-    return () => clearTimeout(timer);
   }, []);
 
   // === Colores de categorías ===
@@ -101,40 +64,27 @@ export default function ProjectsSection() {
     integration: "bg-orange-100 text-orange-800",
   };
 
-  // === Función para obtener URL de embed ===
+  // === Función para obtener URL de embed (YouTube / Drive) ===
   const getEmbedUrl = (url) => {
     if (!url) return null;
 
-    // === YouTube ===
+    // --- YouTube ---
     if (url.includes("youtube.com") || url.includes("youtu.be")) {
-      let videoId = null;
-
-      if (url.includes("youtube.com/watch")) {
-        videoId = url.split("v=")[1]?.split("&")[0];
-      } else if (url.includes("youtu.be/")) {
-        videoId = url.split("youtu.be/")[1]?.split("?")[0];
-      } else if (url.includes("youtube.com/embed/")) {
-        videoId = url.split("youtube.com/embed/")[1]?.split("?")[0];
-      }
-
-      if (videoId) {
-        return `https://www.youtube.com/embed/${videoId}?rel=0&modestbranding=1&controls=1&playsinline=1`;
-      }
+      const videoId =
+        url.split("v=")[1]?.split("&")[0] ||
+        url.split("youtu.be/")[1]?.split("?")[0];
+      return `https://www.youtube.com/embed/${videoId}?rel=0&modestbranding=1&controls=1`;
     }
 
-    // === Google Drive ===
+    // --- Google Drive ---
     if (url.includes("drive.google.com")) {
       let fileId = null;
-
       if (url.includes("/file/d/")) {
         fileId = url.split("/file/d/")[1].split("/")[0];
       } else if (url.includes("id=")) {
         fileId = url.split("id=")[1].split("&")[0];
       }
-
-      if (fileId) {
-        return `https://drive.google.com/file/d/${fileId}/preview`;
-      }
+      if (fileId) return `https://drive.google.com/file/d/${fileId}/preview`;
     }
 
     return url;
@@ -143,7 +93,6 @@ export default function ProjectsSection() {
   return (
     <section id="projects" className="py-24 bg-white">
       <div className="max-w-7xl mx-auto px-6">
-
         {/* === Título principal === */}
         <motion.div
           ref={ref}
@@ -155,12 +104,9 @@ export default function ProjectsSection() {
           <h2 className="text-4xl md:text-5xl font-bold text-[#222222] mb-4">
             Algunos <span className="gradient-text">Proyectos</span>
           </h2>
-
           <div className="w-20 h-1 bg-gradient-to-r from-[#007BFF] to-[#00C896] mx-auto rounded-full mb-6" />
-
           <p className="text-gray-600 max-w-2xl mx-auto">
-            Explora mi trabajo en análisis de datos, automatización e
-            inteligencia artificial
+            Explora mi trabajo en análisis de datos, automatización e inteligencia artificial
           </p>
         </motion.div>
 
@@ -168,10 +114,7 @@ export default function ProjectsSection() {
         {isLoading ? (
           <div className="grid md:grid-cols-2 gap-8">
             {[1, 2, 3, 4].map((i) => (
-              <div
-                key={i}
-                className="h-96 bg-gray-100 rounded-2xl animate-pulse"
-              />
+              <div key={i} className="h-96 bg-gray-100 rounded-2xl animate-pulse" />
             ))}
           </div>
         ) : projects.length === 0 ? (
@@ -185,16 +128,12 @@ export default function ProjectsSection() {
             <div className="w-24 h-24 bg-gradient-to-br from-blue-100 to-emerald-100 rounded-full flex items-center justify-center mx-auto mb-6">
               <UploadIcon className="w-12 h-12 text-[#007BFF]" />
             </div>
-
             <h3 className="text-2xl font-bold text-[#222222] mb-4">
               Próximamente: Proyectos en Camino
             </h3>
-
             <p className="text-gray-600 mb-8 max-w-md mx-auto">
-              Estoy preparando videos explicativos de mis mejores proyectos.
-              Pronto podrás verlos aquí.
+              Estoy preparando videos explicativos de mis mejores proyectos. Pronto podrás verlos aquí.
             </p>
-
             <Link to={createPageUrl("ProjectManager")}>
               <Button className="bg-gradient-to-r from-[#007BFF] to-[#00C896] text-white hover:shadow-xl">
                 Administrar Proyectos
@@ -210,20 +149,15 @@ export default function ProjectsSection() {
                   key={project.id}
                   initial={{ opacity: 0, y: 30 }}
                   animate={inView ? { opacity: 1, y: 0 } : {}}
-                  transition={{
-                    duration: 0.6,
-                    delay: index * 0.15,
-                  }}
+                  transition={{ duration: 0.6, delay: index * 0.15 }}
                 >
                   <Card className="group overflow-hidden hover:shadow-2xl transition-all duration-300 h-full flex flex-col">
-
                     {/* === Imagen o placeholder === */}
                     <div className="relative h-64 bg-gradient-to-br from-blue-100 to-emerald-100 overflow-hidden">
                       {project.thumbnail_url ? (
                         <img
                           src={project.thumbnail_url}
                           alt={project.title}
-                          loading="lazy"
                           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                         />
                       ) : (
@@ -234,14 +168,12 @@ export default function ProjectsSection() {
 
                       {/* === Botón de play sobre la imagen === */}
                       {project.video_url && (
-                        <div
-                          className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-all flex items-center justify-center opacity-0 group-hover:opacity-100"
-                          onClick={() => setSelectedProject(project)}
-                        >
+                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-all flex items-center justify-center opacity-0 group-hover:opacity-100">
                           <motion.div
                             initial={{ scale: 0 }}
-                            whileHover={{ scale: 1.08 }}
+                            whileHover={{ scale: 1 }}
                             className="w-20 h-20 bg-white rounded-full flex items-center justify-center shadow-2xl cursor-pointer"
+                            onClick={() => setSelectedProject(project)}
                           >
                             <PlayIcon className="w-10 h-10 text-[#007BFF] ml-1" />
                           </motion.div>
@@ -251,23 +183,21 @@ export default function ProjectsSection() {
 
                     {/* === Detalles del proyecto === */}
                     <div className="p-6 flex-1 flex flex-col">
-
                       {project.category && (
-                        <div className="mb-3">
-                          <span className="inline-flex items-center px-3 py-1 rounded-full bg-blue-100 text-blue-800 text-xs font-semibold">
-                            {project.category}
-                          </span>
-                        </div>
+                        <Badge
+                          className={`${
+                            categoryColors[project.category] || "bg-gray-100"
+                          } mb-3`}
+                        >
+                          {project.category.replace(/_/g, " ").toUpperCase()}
+                        </Badge>
                       )}
-
                       <h3 className="text-2xl font-bold text-[#222222] mb-3">
                         {project.title}
                       </h3>
-
                       <p className="text-gray-600 mb-4 flex-1">
                         {project.description}
                       </p>
-
                       {project.technologies?.length > 0 && (
                         <div className="flex flex-wrap gap-2 mb-4">
                           {project.technologies.map((tech, i) => (
@@ -280,8 +210,6 @@ export default function ProjectsSection() {
                           ))}
                         </div>
                       )}
-
-                      {/* === Botón vídeo === */}
                       {project.video_url && (
                         <Button
                           onClick={() => setSelectedProject(project)}
@@ -312,9 +240,7 @@ export default function ProjectsSection() {
         )}
       </div>
 
-      {/* ============================================================
-          MODAL DE VIDEO
-          ============================================================ */}
+      {/* === Modal de video === */}
       {selectedProject?.video_url && (
         <motion.div
           initial={{ opacity: 0 }}
@@ -328,7 +254,6 @@ export default function ProjectsSection() {
             onClick={(e) => e.stopPropagation()}
             className="relative max-w-6xl w-full"
           >
-            {/* === Botón cerrar === */}
             <Button
               variant="ghost"
               size="icon"
@@ -337,26 +262,17 @@ export default function ProjectsSection() {
             >
               ✕
             </Button>
-
             <div className="bg-white rounded-2xl overflow-hidden shadow-2xl">
-
-              {/* === Cabecera === */}
               <div className="bg-gradient-to-r from-[#007BFF] to-[#00C896] p-4">
-                <h3 className="text-white font-bold text-xl">
-                  {selectedProject.title}
-                </h3>
+                <h3 className="text-white font-bold text-xl">{selectedProject.title}</h3>
               </div>
-
-              {/* === Video 16:9 === */}
               <div className="aspect-video bg-black">
                 <iframe
                   src={getEmbedUrl(selectedProject.video_url)}
                   className="w-full h-full"
-                  loading="lazy"
-                  title={`${selectedProject.title} - Video explicativo`}
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  referrerPolicy="strict-origin-when-cross-origin"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen
+                  title={selectedProject.title}
                 />
               </div>
             </div>
