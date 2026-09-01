@@ -1,4 +1,3 @@
-```jsx
 import React, { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { PlayIcon, UploadIcon, EyeIcon } from "lucide-react";
@@ -367,5 +366,4 @@ export default function ProjectsSection() {
     </section>
   );
 }
-```
 
