@@ -180,12 +180,16 @@ export default function ProjectsSection() {
           <>
             {/* === Lista de proyectos === */}
             <div className="grid md:grid-cols-2 gap-8">
-              {projects.map((project, index) => (
+              {projects.map((project, index) => {
+                const isLastOdd =
+                  projects.length % 2 !== 0 && index === projects.length - 1;
+                return (
                 <motion.div
                   key={project.id}
                   initial={{ opacity: 0, y: 30 }}
                   animate={inView ? { opacity: 1, y: 0 } : {}}
                   transition={{ duration: 0.6, delay: index * 0.15 }}
+                  className={isLastOdd ? "md:col-span-2 md:max-w-[calc(50%-1rem)] md:mx-auto" : ""}
                 >
                   <Card className="group overflow-hidden hover:shadow-2xl transition-all duration-300 h-full flex flex-col">
                     {/* === Imagen o placeholder === */}
@@ -266,7 +270,8 @@ export default function ProjectsSection() {
                     </div>
                   </Card>
                 </motion.div>
-              ))}
+                );
+              })}
             </div>
 
             {/* === Botón inferior === */}
