@@ -28,16 +28,21 @@ export default function ProjectsSection() {
     };
   }, []);
 
-  // === Cargar proyectos simulados ===
+  // === Cargar proyectos ===
   useEffect(() => {
-    setTimeout(() => {
+    const timer = setTimeout(() => {
       setProjects([
         {
           id: 1,
-          title: "ÁLISIS PREDICTIVO DE MERCADO AUTOMOTRIZ",
+          title: "ANÁLISIS PREDICTIVO DE MERCADO AUTOMOTRIZ",
           description: "Visualización con Power BI",
           category: "DATA ANALYSIS / MACHINE LEARNING / VISUALIZATION / AUTOMATION",
-          technologies: ["Python / Machine Learning (scikit-learn) / Visualización de datos / Dashboards interactivos"],
+          technologies: [
+            "Python",
+            "Machine Learning (scikit-learn)",
+            "Visualización de datos",
+            "Dashboards interactivos",
+          ],
           thumbnail_url:
             "https://raw.githubusercontent.com/jluisrobles/portfolio-assets/main/car%20prediction.png",
           video_url: "https://youtu.be/y3R9gTR_sSg",
@@ -45,24 +50,46 @@ export default function ProjectsSection() {
         {
           id: 2,
           title: "AUTOMATIZACIÓN Y PROSPECCIÓN COMERCIAL",
-          description: "Visualización interactiva con Streamlit a partir de datos enriquecidos",
+          description:
+            "Visualización interactiva con Streamlit a partir de datos enriquecidos",
           category: "DATA EXTRACTION / TRANSFORMATION / VISUALIZATION / APP DEPLOYMENT",
-          technologies: ["Python / Streamlit / Excel avanzado / Sales Navigator / Skrapp / Datagma / Limpieza de datos"],
-          thumbnail_url: "https://raw.githubusercontent.com/jluisrobles/portfolio-assets/main/tecnolog%C3%ADas.png",
+          technologies: [
+            "Python",
+            "Streamlit",
+            "Excel avanzado",
+            "Sales Navigator",
+            "Skrapp",
+            "Datagma",
+            "Limpieza de datos",
+          ],
+          thumbnail_url:
+            "https://raw.githubusercontent.com/jluisrobles/portfolio-assets/main/tecnolog%C3%ADas.png",
           video_url: "https://youtu.be/GV9s4c6_M4g",
+        },
+        {
+          id: 3,
+          title: "ANÁLISIS DE VENTAS · DISTRIBUCIONES CANARIAS S.L.",
+          description:
+            "Análisis de ventas del archipiélago canario mediante Power BI, integrando datos procedentes de múltiples fuentes.",
+          category: "DATA ANALYSIS / POWER BI / DATA INTEGRATION / VISUALIZATION",
+          technologies: [
+            "Power BI",
+            "Power Query",
+            "DAX",
+            "Integración de múltiples fuentes",
+            "Modelado de datos",
+            "Dashboards interactivos",
+          ],
+          thumbnail_url:
+            "https://raw.githubusercontent.com/jluisrobles/portfolio-assets/main/distribuciones-canarias.png",
+          video_url: "https://youtu.be/To_oepDMMcs",
         },
       ]);
       setIsLoading(false);
     }, 1000);
-  }, []);
 
-  // === Colores de categorías ===
-  const categoryColors = {
-    data_analysis: "bg-blue-100 text-blue-800",
-    automation: "bg-green-100 text-green-800",
-    ai_agent: "bg-purple-100 text-purple-800",
-    integration: "bg-orange-100 text-orange-800",
-  };
+    return () => clearTimeout(timer);
+  }, []);
 
   // === Función para obtener URL de embed (YouTube / Drive) ===
   const getEmbedUrl = (url) => {
@@ -70,10 +97,19 @@ export default function ProjectsSection() {
 
     // --- YouTube ---
     if (url.includes("youtube.com") || url.includes("youtu.be")) {
-      const videoId =
-        url.split("v=")[1]?.split("&")[0] ||
-        url.split("youtu.be/")[1]?.split("?")[0];
-      return `https://www.youtube.com/embed/${videoId}?rel=0&modestbranding=1&controls=1`;
+      let videoId = null;
+
+      if (url.includes("youtube.com/watch")) {
+        videoId = url.split("v=")[1]?.split("&")[0];
+      } else if (url.includes("youtu.be/")) {
+        videoId = url.split("youtu.be/")[1]?.split("?")[0];
+      } else if (url.includes("youtube.com/embed/")) {
+        videoId = url.split("youtube.com/embed/")[1]?.split("?")[0];
+      }
+
+      if (videoId) {
+        return `https://www.youtube.com/embed/${videoId}?rel=0&modestbranding=1&controls=1&playsinline=1`;
+      }
     }
 
     // --- Google Drive ---
@@ -158,6 +194,7 @@ export default function ProjectsSection() {
                         <img
                           src={project.thumbnail_url}
                           alt={project.title}
+                          loading="lazy"
                           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                         />
                       ) : (
@@ -168,36 +205,41 @@ export default function ProjectsSection() {
 
                       {/* === Botón de play sobre la imagen === */}
                       {project.video_url && (
-                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-all flex items-center justify-center opacity-0 group-hover:opacity-100">
+                        <button
+                          type="button"
+                          onClick={() => setSelectedProject(project)}
+                          aria-label={`Ver video de ${project.title}`}
+                          className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-all flex items-center justify-center opacity-0 group-hover:opacity-100 focus:opacity-100 focus:bg-black/40"
+                        >
                           <motion.div
                             initial={{ scale: 0 }}
-                            whileHover={{ scale: 1 }}
-                            className="w-20 h-20 bg-white rounded-full flex items-center justify-center shadow-2xl cursor-pointer"
-                            onClick={() => setSelectedProject(project)}
+                            whileHover={{ scale: 1.08 }}
+                            className="w-20 h-20 bg-white rounded-full flex items-center justify-center shadow-2xl"
                           >
                             <PlayIcon className="w-10 h-10 text-[#007BFF] ml-1" />
                           </motion.div>
-                        </div>
+                        </button>
                       )}
                     </div>
 
                     {/* === Detalles del proyecto === */}
                     <div className="p-6 flex-1 flex flex-col">
                       {project.category && (
-                        <Badge
-                          className={`${
-                            categoryColors[project.category] || "bg-gray-100"
-                          } mb-3`}
-                        >
-                          {project.category.replace(/_/g, " ").toUpperCase()}
-                        </Badge>
+                        <div className="mb-3">
+                          <Badge className="bg-blue-100 text-blue-800">
+                            {project.category}
+                          </Badge>
+                        </div>
                       )}
+
                       <h3 className="text-2xl font-bold text-[#222222] mb-3">
                         {project.title}
                       </h3>
+
                       <p className="text-gray-600 mb-4 flex-1">
                         {project.description}
                       </p>
+
                       {project.technologies?.length > 0 && (
                         <div className="flex flex-wrap gap-2 mb-4">
                           {project.technologies.map((tech, i) => (
@@ -210,6 +252,8 @@ export default function ProjectsSection() {
                           ))}
                         </div>
                       )}
+
+                      {/* === Botón vídeo === */}
                       {project.video_url && (
                         <Button
                           onClick={() => setSelectedProject(project)}
@@ -240,7 +284,9 @@ export default function ProjectsSection() {
         )}
       </div>
 
-      {/* === Modal de video === */}
+      {/* ============================================================
+          MODAL DE VIDEO
+          ============================================================ */}
       {selectedProject?.video_url && (
         <motion.div
           initial={{ opacity: 0 }}
@@ -254,6 +300,7 @@ export default function ProjectsSection() {
             onClick={(e) => e.stopPropagation()}
             className="relative max-w-6xl w-full"
           >
+            {/* === Botón cerrar === */}
             <Button
               variant="ghost"
               size="icon"
@@ -262,17 +309,25 @@ export default function ProjectsSection() {
             >
               ✕
             </Button>
+
             <div className="bg-white rounded-2xl overflow-hidden shadow-2xl">
+              {/* === Cabecera === */}
               <div className="bg-gradient-to-r from-[#007BFF] to-[#00C896] p-4">
-                <h3 className="text-white font-bold text-xl">{selectedProject.title}</h3>
+                <h3 className="text-white font-bold text-xl">
+                  {selectedProject.title}
+                </h3>
               </div>
+
+              {/* === Video 16:9 === */}
               <div className="aspect-video bg-black">
                 <iframe
                   src={getEmbedUrl(selectedProject.video_url)}
                   className="w-full h-full"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  loading="lazy"
+                  title={`${selectedProject.title} - Video explicativo`}
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  referrerPolicy="strict-origin-when-cross-origin"
                   allowFullScreen
-                  title={selectedProject.title}
                 />
               </div>
             </div>
@@ -282,4 +337,3 @@ export default function ProjectsSection() {
     </section>
   );
 }
-
