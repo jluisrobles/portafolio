@@ -4,8 +4,6 @@ import { PlayIcon, UploadIcon, EyeIcon } from "lucide-react";
 import { Card } from "../ui/card.jsx";
 import { Badge } from "../ui/badge.jsx";
 import Button from "../ui/button.jsx";
-import { Link } from "react-router-dom";
-import { createPageUrl } from "../../utils";
 
 export default function ProjectsSection() {
   const [inView, setInView] = useState(false);
@@ -170,11 +168,6 @@ export default function ProjectsSection() {
             <p className="text-gray-600 mb-8 max-w-md mx-auto">
               Estoy preparando videos explicativos de mis mejores proyectos. Pronto podrás verlos aquí.
             </p>
-            <Link to={createPageUrl("ProjectManager")}>
-              <Button className="bg-gradient-to-r from-[#007BFF] to-[#00C896] text-white hover:shadow-xl">
-                Administrar Proyectos
-              </Button>
-            </Link>
           </motion.div>
         ) : (
           <>
@@ -272,18 +265,6 @@ export default function ProjectsSection() {
                 </motion.div>
                 );
               })}
-            </div>
-
-            {/* === Botón inferior === */}
-            <div className="text-center mt-12">
-              <Link to={createPageUrl("ProjectManager")}>
-                <Button
-                  variant="outline"
-                  className="border-2 border-[#007BFF] text-[#007BFF] hover:bg-[#007BFF] hover:text-white"
-                >
-                  Administrar Proyectos
-                </Button>
-              </Link>
             </div>
           </>
         )}
