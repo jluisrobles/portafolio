@@ -1,7 +1,7 @@
 {
   "name": "proyecto",
   "version": "1.0.0",
-  "homepage": "https://jluisrobles.github.io/portafolio",
+  "homepage": ".",
   "description": "",
   "main": "Layout.js",
   "scripts": {
